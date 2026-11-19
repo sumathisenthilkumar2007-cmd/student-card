@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student ID Card Generator</title>
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    background: #eaf0ff;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    color: #172554;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.form {
+    background: white;
+    padding: 25px;
+    width: 300px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px #aaa;
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 8px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+
+button {
+    background: #1e40af;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #172554;
+}
+
+/* Student Card */
+
+.card {
+    width: 320px;
+    background: white;
+    border: 3px solid #1e40af;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px #999;
+}
+
+.header {
+    background: #1e40af;
+    color: white;
+    padding: 15px;
+}
+
+.photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #1e40af;
+    margin-top: 20px;
+}
+
+.details {
+    text-align: left;
+    padding: 15px 25px;
+    line-height: 1.7;
+}
+
+.footer {
+    background: #1e40af;
+    color: white;
+    padding: 12px;
+}
+
+@media print {
+    body {
+        background: white;
+    }
+
+    h1, .form, .print-btn {
+        display: none;
+    }
+
+    .container {
+        display: block;
+    }
+
+    .card {
+        margin: 30px auto;
+        box-shadow: none;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>STUDENT ID CARD GENERATOR</h1>
+
+<div class="container">
+
+<!-- Student Details Form -->
+
+<div class="form">
+
+<h2>Enter Details</h2>
+
+<input type="text" id="college" placeholder="College Name">
+
+<input type="text" id="name" placeholder="Student Name">
+
+<input type="text" id="roll" placeholder="Roll Number">
+
+<input type="text" id="course" placeholder="Course">
+
+<input type="text" id="department" placeholder="Department">
+
+<br>
+
+<label>Upload Student Photo:</label>
+
+<input type="file" id="photo" accept="image/*">
+
+<br>
+
+<button onclick="generateCard()">
+Generate Student Card
+</button>
+
+</div>
+
+
+<!-- Student ID Card -->
+
+<div class="card">
+
+<div class="header">
+
+<h2 id="cCollege">ABC COLLEGE</h2>
+
+<h4>STUDENT IDENTITY CARD</h4>
+
+</div>
+
+<img
+id="cPhoto"
+class="photo"
+src="https://placehold.co/120x120?text=PHOTO"
+alt="Student Photo"
+>
+
+<div class="details">
+
+<p><b>Name:</b> <span id="cName">Student Name</span></p>
+
+<p><b>Roll No:</b> <span id="cRoll">0001</span></p>
+
+<p><b>Course:</b> <span id="cCourse">BCA</span></p>
+
+<p><b>Department:</b> <span id="cDepartment">Computer Science</span></p>
+
+</div>
+
+<div class="footer">
+
+STUDENT ID CARD
+
+</div>
+
+</div>
+
+</div>
+
+<button class="print-btn" onclick="window.print()">
+Print Student Card
+</button>
+
+
+<script>
+
+function generateCard() {
+
+    const college = document.getElementById("college").value;
+    const name = document.getElementById("name").value;
+    const roll = document.getElementById("roll").value;
+    const course = document.getElementById("course").value;
+    const department = document.getElementById("department").value;
+
+    if (!college || !name || !roll || !course || !department) {
+        alert("Please enter all student details!");
+        return;
+    }
+
+    document.getElementById("cCollege").innerText = college;
+    document.getElementById("cName").innerText = name;
+    document.getElementById("cRoll").innerText = roll;
+    document.getElementById("cCourse").innerText = course;
+    document.getElementById("cDepartment").innerText = department;
+
+    const photo = document.getElementById("photo").files[0];
+
+    if (photo) {
+
+        if (!photo.type.startsWith("image/")) {
+            alert("Please select a valid image!");
+            return;
+        }
+
+        document.getElementById("cPhoto").src =
+            URL.createObjectURL(photo);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
